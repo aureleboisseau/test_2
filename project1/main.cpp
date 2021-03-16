@@ -44,8 +44,8 @@ int main() {
         DayCounter dayCounter = Actual365Fixed();
         
         
-        Handle<YieldTermStructure> riskFreeRate(ext::make_shared<YieldTermStructure>(riskFreeRateH);
-        Handle<BlackVolTermStructure> volatility(ext::make_shared<BlackVolTermStructure>(volatilityH);
+        Handle<YieldTermStructure> riskFreeRate(ext::make_shared<YieldTermStructure>(riskFreeRateH));
+        Handle<BlackVolTermStructure> volatility(ext::make_shared<BlackVolTermStructure>(volatilityH));
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
