@@ -25,7 +25,7 @@ int main() {
         // modify the sample code below to suit your project
 
         Calendar calendar = TARGET();
-        Date today = Date(24, February, 2021);
+        Date today = Date(30, February, 2021);
         Settings::instance().evaluationDate() = today;
 
         Option::Type type(Option::Put);
