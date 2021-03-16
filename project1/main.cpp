@@ -31,7 +31,7 @@ int main() {
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
-        Date maturity(30, May, 2021);
+        Date maturity(24, May, 2021);
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
@@ -82,4 +82,3 @@ int main() {
         return 1;
     }
 }
-
