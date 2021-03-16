@@ -47,7 +47,7 @@ int main() {
                 new BlackVarianceCurve(today, {today+3*Months, today+6*Months}, {0.20, 0.25}, dayCounter)));
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new GeneralizedBlackScholesProcess(underlyingH, riskFreeRate, volatility));
+                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
