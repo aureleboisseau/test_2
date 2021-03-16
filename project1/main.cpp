@@ -31,6 +31,9 @@ int main() {
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
+        Spread dividendYield = 0.05;
+        Rate riskFreeRateH = 0.02;
+        Volatility volatilityH = 0.15;
         Date maturity(24, May, 2021);
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
@@ -39,12 +42,10 @@ int main() {
         Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
 
         DayCounter dayCounter = Actual365Fixed();
-        Handle<YieldTermStructure> riskFreeRate(
-            ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.01, 0.015}, dayCounter)));
-        Handle<BlackVolTermStructure> volatility(
-            ext::shared_ptr<BlackVolTermStructure>(
-                new BlackVarianceCurve(today, {today+3*Months, today+6*Months}, {0.20, 0.25}, dayCounter)));
+        
+        
+        Handle<Quote> riskFreeRate(ext::make_shared<SimpleQuote>(riskFreeRateH));
+        Handle<Quote> volatility(ext::make_shared<SimpleQuote>(volatilityH));
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
                  new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
