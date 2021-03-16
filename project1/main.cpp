@@ -52,7 +52,7 @@ int main() {
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
 
-        Size timeSteps = 20;
+        Size timeSteps = 10;
         Size mcSeed = 42;
         ext::shared_ptr<PricingEngine> mcengine;
         mcengine = MakeMCEuropeanEngine_2<PseudoRandom>(bsmProcess)
