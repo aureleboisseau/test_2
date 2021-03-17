@@ -15,6 +15,7 @@
 #include <ql/utilities/dataformatters.hpp>
 #include <iostream>
 #include <chrono>
+#include <ql/termstructures/yieldtermstructure.hpp>
 
 using namespace QuantLib;
 
