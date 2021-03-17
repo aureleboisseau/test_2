@@ -19,7 +19,7 @@
      class GeneralizedBlackScholesProcess : public StochasticProcess1D {
        public:
          GeneralizedBlackScholesProcess(Handle<Quote> x0,
-                                        Handle<Quote> dividendTS,
+                                        Handle<YieldTermStructure> dividendTS,
                                         Handle<YieldTermStructure> riskFreeTS,
                                         Handle<BlackVolTermStructure> blackVolTS,
                                         const ext::shared_ptr<discretization>& d =
