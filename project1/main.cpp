@@ -62,7 +62,7 @@ int main() {
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatilityH));
+                 new GeneralizedBlackScholesProcess(underlyingH, riskFreeRate, volatilityH));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
