@@ -44,13 +44,11 @@ int main() {
 
         DayCounter dayCounter = Actual365Fixed();
         
-        
-        Handle<YieldTermStructure> riskFreeRate(ext::make_shared<YieldTermStructure>(riskFreeRateH));
-        Handle<BlackVolTermStructure> volatility(ext::make_shared<BlackVolTermStructure>(volatilityH));
+      
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
+                 new BlackScholesProcess(underlyingH, riskFreeRateH, volatilityH));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
