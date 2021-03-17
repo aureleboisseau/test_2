@@ -54,18 +54,19 @@ int main() {
        
         Handle<Quote> dividende(ext::make_shared<SimpleQuote>(dividendYeld));
 
+   
        
-  
-      
-       Handle<BlackVolTermStructure> volatilityH(
+        Handle<YieldTermStructure> riskFreeRate(
+            ext::shared_ptr<YieldTermStructure>(
+                new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
+        
+        Handle<BlackVolTermStructure> volatility(
             ext::shared_ptr<BlackVolTermStructure>(
-                new BlackConstantVol(today, calendar, volatility, dayCounter)));
-       
-      
+                new BlackConstantVol(today, {today+3*Months, today+6*Months}, {0.25,0.25}, dayCounter)));
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new GeneralizedBlackScholesProcess(underlyingH, dividende, riskFreeRate, volatilityH));
+                 new GeneralizedBlackScholesProcess(underlyingH, riskFreeRate, volatilityH));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
