@@ -54,7 +54,9 @@ int main() {
        
   
       
-       BlackConstantVol volatilityH = BlackConstantVol(today, calendar, volatility, dayCounter);
+       Handle<YieldTermStructure> volatilityH(
+            ext::shared_ptr<YieldTermStructure>(
+                new BlackConstantVol(today, calendar, volatility, dayCounter)));
        
       
       
