@@ -54,7 +54,7 @@ int main() {
        
   
       
-       BlackConstantVol volatilityH = BlackConstantVol(today, calendar, volatility, dayCounter)
+       BlackConstantVol volatilityH = BlackConstantVol(today, calendar, volatility, dayCounter);
        
       
       
