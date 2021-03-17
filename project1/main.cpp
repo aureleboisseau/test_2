@@ -46,10 +46,10 @@ int main() {
         
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.015}, dayCounter)));
+                new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
         Handle<BlackVolTermStructure> volatility(
             ext::shared_ptr<BlackVolTermStructure>(
-                new BlackVarianceCurve(today, {today+3*Months, today+6*Months}, {0.25}, dayCounter)));
+                new BlackVarianceCurve(today, {today+3*Months, today+6*Months}, {0.25,0.25}, dayCounter)));
       
       
 
