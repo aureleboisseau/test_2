@@ -47,9 +47,9 @@ int main() {
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
                 new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
-        Handle<BlackVolTermStructure> volatility(
-            ext::shared_ptr<BlackVolTermStructure>(
-                new BlackVarianceCurve(today, {today+1*Months, today+2*Months,today+3*Months, today+4*Months,today+5*Months, today+6*Months}, {0.05,0.10,0.15,0.20,0.25,0.50}, dayCounter)));
+       
+
+        Volatility volatility = ql.LocalConstantVol(today, volatilityH, dayCounter);
       
       
 
