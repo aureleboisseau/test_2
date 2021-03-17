@@ -33,7 +33,6 @@ int main() {
         Real underlying = 36;
         Real strike = 40;
        
-        Volatility volatility = 0.15;
         Date maturity(24, May, 2021);
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
