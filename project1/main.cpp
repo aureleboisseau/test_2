@@ -49,7 +49,7 @@ int main() {
                 new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
        
 
-        Volatility volatility = ql.LocalConstantVol(today, volatilityH, dayCounter);
+        Volatility volatility = LocalConstantVol(today, volatilityH, dayCounter);
       
       
 
