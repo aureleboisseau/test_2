@@ -13,12 +13,13 @@
   
      class LocalConstantVol;
      class LocalVolCurve;
+     class BlackConstantVol;
   
   
      class GeneralizedBlackScholesProcess : public StochasticProcess1D {
        public:
          GeneralizedBlackScholesProcess(Handle<Quote> x0,
-                                        Handle<YieldTermStructure> dividendTS,
+                                        Handle<Quote> dividendTS,
                                         Handle<YieldTermStructure> riskFreeTS,
                                         Handle<BlackVolTermStructure> blackVolTS,
                                         const ext::shared_ptr<discretization>& d =
