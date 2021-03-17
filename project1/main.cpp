@@ -48,8 +48,14 @@ int main() {
             ext::shared_ptr<YieldTermStructure>(
                 new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
        
-
-        Volatility volatility = LocalConstantVol(today, volatilityH, dayCounter);
+        
+       date = ql.Date().todaysDate()
+       
+       
+       volatility = 0.2
+       volHandle = QuoteHandle(ql.SimpleQuote(volatility))
+       BlackConstantVol(date, calendar, volatility, dayCounter)
+       
       
       
 
