@@ -32,8 +32,7 @@ int main() {
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
-        Spread dividendYield = 0.05;
-        Rate riskFreeRateH = 0.02;
+       
         Volatility volatility = 0.15;
         Date maturity(24, May, 2021);
 
@@ -43,17 +42,8 @@ int main() {
         Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
 
         DayCounter dayCounter = Actual365Fixed();
-        
-        Handle<YieldTermStructure> riskFreeRate(
-            ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
-        
-        
        
         
-       
-        Handle<Quote> dividende(ext::make_shared<SimpleQuote>(dividendYeld));
-
    
        
         Handle<YieldTermStructure> riskFreeRate(
