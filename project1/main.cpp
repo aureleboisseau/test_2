@@ -44,11 +44,17 @@ int main() {
 
         DayCounter dayCounter = Actual365Fixed();
         
+        Handle<YieldTermStructure> riskFreeRate(
+            ext::shared_ptr<YieldTermStructure>(
+                new ZeroCurve({today, today + 6*Months}, {0.015}, dayCounter)));
+        Handle<BlackVolTermStructure> volatility(
+            ext::shared_ptr<BlackVolTermStructure>(
+                new BlackVarianceCurve(today, {today+3*Months, today+6*Months}, {0.25}, dayCounter)));
       
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH,dividendYield, riskFreeRateH, volatilityH));
+                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
