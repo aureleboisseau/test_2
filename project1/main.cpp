@@ -51,7 +51,7 @@ int main() {
         
         Handle<BlackVolTermStructure> volatility(
             ext::shared_ptr<BlackVolTermStructure>(
-                new BlackConstantVol(today, {today+3*Months, today+6*Months}, {0.25,0.25}, dayCounter)));
+                new BlackConstantVol(today, calendar, 0.25, dayCounter)));
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
