@@ -34,7 +34,7 @@ int main() {
         Real strike = 40;
         Spread dividendYield = 0.05;
         Rate riskFreeRateH = 0.02;
-        Volatility volatilityH = 0.15;
+        Volatility volatility = 0.15;
         Date maturity(24, May, 2021);
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
@@ -52,8 +52,8 @@ int main() {
        
        
        
-       volatility = 0.2
-       volHandle = QuoteHandle(ql.SimpleQuote(volatility))
+  
+       volHandle = QuoteHandle(SimpleQuote(volatility))
        BlackConstantVol(today, calendar, volatility, dayCounter)
        
       
