@@ -53,14 +53,14 @@ int main() {
        
        
   
-       volHandle = QuoteHandle(SimpleQuote(volatility))
-       BlackConstantVol(today, calendar, volatility, dayCounter)
+      
+       Volatility volatilityH = BlackConstantVol(today, calendar, volatility, dayCounter)
        
       
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
+                 new BlackScholesProcess(underlyingH, riskFreeRate, volatilityH));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
