@@ -43,7 +43,7 @@ int main() {
         DayCounter dayCounter = Actual365Fixed();
        
         
-   
+        riskFreeTS = YieldTermStructureHandle(FlatForward(today, 0.05, Actual365Fixed()))
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
@@ -55,7 +55,7 @@ int main() {
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
+                 new BlackScholesProcess(underlyingH, riskFreeTS, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
