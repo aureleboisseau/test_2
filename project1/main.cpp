@@ -79,6 +79,7 @@ int main() {
 
         std::cout << "NPV: " << NPV << std::endl;
         std::cout << "Elapsed time: " << us / 1000000 << " s" << std::endl;
+        std::cout << "Volatility:" << Volatility << std::endl;
 
         return 0;
 
