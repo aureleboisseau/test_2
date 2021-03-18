@@ -43,11 +43,11 @@ int main() {
         DayCounter dayCounter = Actual365Fixed();
        
         
-        riskFreeTS = YieldTermStructureHandle(FlatForward(today, 0.05, Actual365Fixed()))
+      
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
+                new FlatForward(today, 0.05, Actual365Fixed());
         
         Handle<BlackVolTermStructure> volatility(
             ext::shared_ptr<BlackVolTermStructure>(
