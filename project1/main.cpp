@@ -16,6 +16,8 @@
 #include <iostream>
 #include <chrono>
 #include <ql/termstructures/yieldtermstructure.hpp>
+#include <ql/termstructures/yield/flatforward.hpp>
+
 
 using namespace QuantLib;
 
@@ -55,7 +57,7 @@ int main() {
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeTS, volatility));
+                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
