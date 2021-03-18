@@ -49,7 +49,7 @@ int main() {
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(today, 0.05, Actual365Fixed());
+                new FlatForward(today, 0.05, Actual365Fixed())));
         
         Handle<BlackVolTermStructure> volatility(
             ext::shared_ptr<BlackVolTermStructure>(
