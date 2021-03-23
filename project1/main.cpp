@@ -17,7 +17,13 @@
 #include <chrono>
 #include <ql/termstructures/yieldtermstructure.hpp>
 #include <ql/termstructures/yield/flatforward.hpp>
-
+#include <iostream>
+#include <cstdlib>
+#define BOOST_AUTO_TEST_MAIN
+#include <boost/test/unit_test.hpp>
+#include <boost/detail/lightweight_test.hpp>
+#include <ql/quantlib.hpp>
+#include <boost/format.hpp>
 
 using namespace QuantLib;
 
@@ -51,7 +57,7 @@ int main() {
         Real vol = sigma * std::sqrt(1);
        
         
-        //iscountFactor growth = std::exp(-dividendYield * timeToMaturity);
+        iscountFactor growth = std::exp(-dividendYield * timeToMaturity);
 
         //calculate payoff discount factor assuming continuous compounding 
         DiscountFactor discount = std::exp(-riskFree * timeToMaturity);
