@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#define BOOST_AUTO_TEST_MAIN
+
 #include <boost/test/unit_test.hpp>
 #include <boost/detail/lightweight_test.hpp>
 #include <ql/quantlib.hpp>
@@ -10,7 +10,7 @@ namespace {
 
 using namespace QuantLib;
 
-BOOST_AUTO_TEST_CASE(testBlackScholes) {
+
 Real strike = 110.0;
 Real timeToMaturity = .5; //years
 Real spot = 100.0;
@@ -53,4 +53,4 @@ std::cout << boost::format("Value of 110.0 call (sigma up %.2f) is %.4f") % chan
 
 //estimate new price of call given one point change in volatility using vega
 std::cout << boost::format("Value of 110.0 call (sigma up %.2f) estimated from vega) is %.4f") % changeInSigma % (bsCalculator.value() + (bsCalculator.vega(timeToMaturity)/100)) << std::endl;
-}}
+}
