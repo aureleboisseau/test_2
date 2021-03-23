@@ -33,7 +33,7 @@ boost::shared_ptr<PlainVanillaPayoff> vanillaCallPayoff =
     boost::shared_ptr<PlainVanillaPayoff>(new PlainVanillaPayoff(Option::Type::Call, strike));
 
 BlackScholesCalculator bsCalculator(vanillaCallPayoff, spot, growth, vol, discount);
-Real Value = bsCalculator.value()
+Real Value = bsCalculator.value();
 std::cout <<"Value:"<< Value << std::endl;
 
     
