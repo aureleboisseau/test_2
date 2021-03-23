@@ -12,11 +12,11 @@ using namespace QuantLib;
 int main() {
 
     try {
-        Real strike = 110.0;
+        Real strike = 40.0;
         Real timeToMaturity = .5; //years
-        Real spot = 100.0;
+        Real spot = 36.0;
         Rate riskFree = .03;
-        Rate dividendYield = 0.0;
+        Rate dividendYield = 0.1;
         Volatility sigma = .20;
 
         //QuantLib requires sigma * sqrt(T) rather than just sigma/volatility
@@ -39,11 +39,6 @@ int main() {
 
         return 0;
 
-    } catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
-    } catch (...) {
-        std::cerr << "unknown error" << std::endl;
-        return 1;
+    
     }
 }
