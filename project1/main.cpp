@@ -32,64 +32,60 @@ int main() {
         Settings::instance().evaluationDate() = today;
 
         Option::Type type(Option::Put);
-        Real underlying = 36;
+        Real underlying = 36;  // Spot 
         Real strike = 40;
        
         Date maturity(24, May, 2021);
 
-        ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
-        ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
-
-        Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
+       
 
         DayCounter dayCounter = Actual365Fixed();
-       
+        
         
       
-       
-        Handle<YieldTermStructure> riskFreeRate(
-            ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(today, 0.05, Actual365Fixed())));
-        
-        Handle<BlackVolTermStructure> volatility(
-            ext::shared_ptr<BlackVolTermStructure>(
-                new BlackConstantVol(today, calendar, 0.05, dayCounter)));
+        Real timeToMaturity = .5; //years
       
-
-        ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
-
-        // options
-        VanillaOption europeanOption(payoff, europeanExercise);
-
-        Size timeSteps = 10;
-        Size mcSeed = 42;
-        ext::shared_ptr<PricingEngine> mcengine;
-        mcengine = MakeMCEuropeanEngine_2<PseudoRandom>(bsmProcess)
-            .withSteps(timeSteps)
-            .withAbsoluteTolerance(0.01)
-            .withSeed(mcSeed);
-        europeanOption.setPricingEngine(mcengine);
-
-        auto startTime = std::chrono::steady_clock::now();
-
-        Real NPV = europeanOption.NPV();
-
-        auto endTime = std::chrono::steady_clock::now();
-
-        double us = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-
-        std::cout << "NPV: " << NPV << std::endl;
-        std::cout << "Elapsed time: " << us / 1000000 << " s" << std::endl;
+        Rate riskFree = .03;
+        Rate dividendYield = 0.01;
+        Volatility sigma = .20;
+        Real vol = sigma * std::sqrt(1);
+       
         
+        iscountFactor growth = std::exp(-dividendYield * timeToMaturity);
 
-        return 0;
+        //calculate payoff discount factor assuming continuous compounding 
+        DiscountFactor discount = std::exp(-riskFree * timeToMaturity);
 
-    } catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
-    } catch (...) {
-        std::cerr << "unknown error" << std::endl;
-        return 1;
+        //instantiate payoff function for a call 
+        boost::shared_ptr<PlainVanillaPayoff> vanillaCallPayoff = 
+            boost::shared_ptr<PlainVanillaPayoff>(new PlainVanillaPayoff(Option::Type::Call, strike));
+        
+         ext::shared_ptr<GeneralizedBlackScholesProcess> bsCalculator(
+                 new BlackScholesProcess(underlying, riskFree, dividendYield,volatility));
+
+        BlackScholesCalculator bsCalculator(vanillaCallPayoff, spot, growth, vol, discount);
+        std::cout << boost::format("Value of 110.0 call is %.4f") % bsCalculator.value() << std::endl;
+        std::cout << boost::format("Delta of 110.0 call is %.4f") % bsCalculator.delta() << std::endl;
+        std::cout << boost::format("Gamma of 110.0 call is %.4f") % bsCalculator.gamma() << std::endl;
+        std::cout << boost::format("Vega of 110.0 call is %.4f") % bsCalculator.vega(timeToMaturity)/100 << std::endl;
+        std::cout << boost::format("Theta of 110.0 call is %.4f") % (bsCalculator.thetaPerDay(timeToMaturity)) << std::endl;
+
+        Real changeInSpot = 1.0;
+        BlackScholesCalculator bsCalculatorSpotUpOneDollar(Option::Type::Call, strike, spot + changeInSpot, growth, vol, discount);
+        std::cout << boost::format("Value of 110.0 call (spot up $%d) is %.4f") % changeInSpot % bsCalculatorSpotUpOneDollar.value() << std::endl;
+        std::cout << boost::format("Value of 110.0 call (spot up $%d) estimated from delta is %.4f") % changeInSpot % (bsCalculator.value() + bsCalculator.delta() * changeInSpot) << std::endl;
+
+        //use a Taylor series expansion to estimate the new price of a call given delta and gamma
+        std::cout << boost::format("Value of 110.0 call (spot up $%d) estimated from delta and gamma is %.4f") % changeInSpot % (bsCalculator.value() + (bsCalculator.delta() * changeInSpot) + (.5 * bsCalculator.gamma() * changeInSpot)) << std::endl;
+
+        //calculate new price of a call given a one point change in volatility
+        Real changeInSigma = .01;
+        BlackScholesCalculator bsCalculatorSigmaUpOnePoint(Option::Type::Call, strike, spot, growth, (sigma + changeInSigma) * std::sqrt(timeToMaturity) , discount);
+        std::cout << boost::format("Value of 110.0 call (sigma up %.2f) is %.4f") % changeInSigma % bsCalculatorSigmaUpOnePoint.value() << std::endl;
+
+        //estimate new price of call given one point change in volatility using vega
+        std::cout << boost::format("Value of 110.0 call (sigma up %.2f) estimated from vega) is %.4f") % changeInSigma % (bsCalculator.value() + (bsCalculator.vega(timeToMaturity)/100)) << std::endl;
     }
 }
+       
+     
