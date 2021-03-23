@@ -9,6 +9,7 @@
 namespace {
 
 using namespace QuantLib;
+using namespace std;
 
 
 Real strike = 110.0;
@@ -32,10 +33,10 @@ boost::shared_ptr<PlainVanillaPayoff> vanillaCallPayoff =
     boost::shared_ptr<PlainVanillaPayoff>(new PlainVanillaPayoff(Option::Type::Call, strike));
 
 BlackScholesCalculator bsCalculator(vanillaCallPayoff, spot, growth, vol, discount);
-std::cout << boost::format("Value of 110.0 call is %.4f") % bsCalculator.value() << std::endl;
-std::cout << boost::format("Delta of 110.0 call is %.4f") % bsCalculator.delta() << std::endl;
-std::cout << boost::format("Gamma of 110.0 call is %.4f") % bsCalculator.gamma() << std::endl;
-std::cout << boost::format("Vega of 110.0 call is %.4f") % bsCalculator.vega(timeToMaturity)/100 << std::endl;
-std::cout << boost::format("Theta of 110.0 call is %.4f") % (bsCalculator.thetaPerDay(timeToMaturity)) << std::endl;
+cout << boost::format("Value of 110.0 call is %.4f") % bsCalculator.value() << endl;
+cout << boost::format("Delta of 110.0 call is %.4f") % bsCalculator.delta() << endl;
+cout << boost::format("Gamma of 110.0 call is %.4f") % bsCalculator.gamma() << endl;
+cout << boost::format("Vega of 110.0 call is %.4f") % bsCalculator.vega(timeToMaturity)/100 << endl;
+:cout << boost::format("Theta of 110.0 call is %.4f") % (bsCalculator.thetaPerDay(timeToMaturity)) << endl;
     
 }
