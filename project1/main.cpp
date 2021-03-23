@@ -60,7 +60,7 @@ int main() {
         boost::shared_ptr<PlainVanillaPayoff> vanillaCallPayoff = 
             boost::shared_ptr<PlainVanillaPayoff>(new PlainVanillaPayoff(Option::Type::Call, strike));
         
-        BlackScholesCalculator bsCalculator(vanillaCallPayoff, spot, growth, vol, discount);
+        BlackScholesCalculator bsCalculator(vanillaCallPayoff, underlying, growth, vol, discount);
 
         //BlackScholesCalculator bsCalculator(vanillaCallPayoff, spot, growth, vol, discount);
         std::cout << boost::format("Value of 110.0 call is %.4f") % bsCalculator.value() << std::endl;
