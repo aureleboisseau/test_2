@@ -1,5 +1,3 @@
-
-
   
  #ifndef quantlib_blackscholescalculator_hpp
  #define quantlib_blackscholescalculator_hpp
@@ -60,3 +58,6 @@
          return BlackCalculator::thetaPerDay(spot_, maturity);
      }
   
+ }
+  
+ #endif
