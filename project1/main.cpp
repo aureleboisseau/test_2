@@ -60,7 +60,7 @@ int main() {
         boost::shared_ptr<PlainVanillaPayoff> vanillaCallPayoff = 
             boost::shared_ptr<PlainVanillaPayoff>(new PlainVanillaPayoff(Option::Type::Call, strike));
         
-         ext::shared_ptr<GeneralizedBlackScholesProcess> bsCalculator(
+         ext::shared_ptr<quantlib_black_scholes_process_hppf> bsCalculator(
                  new BlackScholesProcess(underlying, riskFree, dividendYield,vol));
 
         //BlackScholesCalculator bsCalculator(vanillaCallPayoff, spot, growth, vol, discount);
