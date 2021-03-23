@@ -45,26 +45,11 @@ int main() {
         DiscountFactor discount = std::exp(-riskFree * timeToMaturity);
         VanillaOption europeanOption(payoff, europeanExercise);
         BlackScholesCalculator bsCalculator(payoff, underlying, growth, vol, discount);
-        Size timeSteps = 10;
-        Size mcSeed = 42;
-        ext::shared_ptr<PricingEngine> mcengine;
-        mcengine = MakeMCEuropeanEngine_2<PseudoRandom>(bsCalculator)
-            .withSteps(timeSteps)
-            .withAbsoluteTolerance(0.01)
-            .withSeed(mcSeed);
-        europeanOption.setPricingEngine(mcengine);
-
-        auto startTime = std::chrono::steady_clock::now();
-
-        Real NPV = europeanOption.NPV();
-        Real you = bsCalculator.value();
-        auto endTime = std::chrono::steady_clock::now();
-
-        double us = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
         
+        Real you = bsCalculator.value();
+       
         std::cout << "NPV: " << you << std::endl;
-        std::cout << "Elapsed time: " << us / 1000000 << " s" << std::endl;
-
+       
         return 0;
 
     } catch (std::exception& e) {
