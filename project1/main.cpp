@@ -57,7 +57,7 @@ int main() {
         Real vol = sigma * std::sqrt(1);
        
         
-        iscountFactor growth = std::exp(-dividendYield * timeToMaturity);
+        DiscountFactor growth = std::exp(-dividendYield * timeToMaturity);
 
         //calculate payoff discount factor assuming continuous compounding 
         DiscountFactor discount = std::exp(-riskFree * timeToMaturity);
