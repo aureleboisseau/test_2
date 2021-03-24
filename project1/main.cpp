@@ -15,6 +15,7 @@
 #include <ql/utilities/dataformatters.hpp>
 #include <iostream>
 #include <chrono>
+#include <ql/termstructures/yieldtermstructure.hpp>
 
 using namespace QuantLib;
 
@@ -31,23 +32,27 @@ int main() {
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
+        Real div = 0.05;
+        Real volatility = 0.15;
+        Real riskFreeRate = 0.20;
+       
         Date maturity(24, May, 2021);
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
 
-        Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
+        
 
         DayCounter dayCounter = Actual365Fixed();
-        Handle<YieldTermStructure> riskFreeRate(
-            ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.01, 0.015}, dayCounter)));
-        Handle<BlackVolTermStructure> volatility(
-            ext::shared_ptr<BlackVolTermStructure>(
-                new BlackVarianceCurve(today, {today+3*Months, today+6*Months}, {0.20, 0.25}, dayCounter)));
+       
+        
+   
+       
+       
+      
 
-        ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
+        ext::shared_ptr<BlackScholesProcess2> bsmProcess(
+                 new BlackScholesProcess2(underlying, div,  riskFreeRate, volatility, volatility));
 
         
         // options
@@ -72,6 +77,7 @@ int main() {
 
         std::cout << "NPV: " << NPV << std::endl;
         std::cout << "Elapsed time: " << us / 1000000 << " s" << std::endl;
+        
 
         return 0;
 
