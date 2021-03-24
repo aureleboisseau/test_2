@@ -33,26 +33,22 @@ int main() {
         Real underlying = 36;
         Real strike = 40;
         Real div = 0.05;
+        Real volatility = 0.15;
+        Real riskFreeRate = 0.20;
        
         Date maturity(24, May, 2021);
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
 
-        Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
+        
 
         DayCounter dayCounter = Actual365Fixed();
        
         
    
        
-        Handle<YieldTermStructure> riskFreeRate(
-            ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
-        
-        Handle<BlackVolTermStructure> volatility(
-            ext::shared_ptr<BlackVolTermStructure>(
-                new BlackConstantVol(today, calendar, 0.05, dayCounter)));
+       
       
 
         ext::shared_ptr<BlackScholesProcess2> bsmProcess(
