@@ -54,8 +54,8 @@ int main() {
                 new BlackConstantVol(today, calendar, 0.05, dayCounter)));
       
 
-        ext::shared_ptr<BlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH, riskFreeRate, volatility));
+        ext::shared_ptr<BlackScholesProcess2> bsmProcess(
+                 new BlackScholesProcess2(underlying, riskFreeRate, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
