@@ -63,7 +63,7 @@ int main() {
             ext::shared_ptr<YieldTermStructure>(
                 new FlatForward(today, volatilityH, dayCounter)));
      
-       Handle<YieldTermStructure> dividenTS(
+       Handle<YieldTermStructure> dividendTS(
             ext::shared_ptr<YieldTermStructure>(
                 new FlatForward(today, dividend_rate, dayCounter)));
       
