@@ -52,20 +52,21 @@ int main() {
 
         DayCounter dayCounter = Actual365Fixed();
        
-   
+       
+}
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, risk_free_rate, dayCounter)));
+                new FlatForward(today, risk_free_rate, dayCounter)));
          
         
        Handle<YieldTermStructure> volatility(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, volatilityH, dayCounter)));
+                new FlatForward(today, volatilityH, dayCounter)));
      
        Handle<YieldTermStructure> dividenTS(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, dividend_rate, dayCounter)));
+                new FlatForward(today, dividend_rate, dayCounter)));
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
