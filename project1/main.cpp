@@ -32,6 +32,7 @@ int main() {
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
+        Real div = 0.05;
        
         Date maturity(24, May, 2021);
 
@@ -55,7 +56,7 @@ int main() {
       
 
         ext::shared_ptr<BlackScholesProcess2> bsmProcess(
-                 new BlackScholesProcess2(underlying, riskFreeRate, volatility));
+                 new BlackScholesProcess2(underlying, div,  riskFreeRate, volatility, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
