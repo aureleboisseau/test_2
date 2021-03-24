@@ -52,12 +52,10 @@ int main() {
 
         DayCounter dayCounter = Actual365Fixed();
        
-       
+         Handle<YieldTermStructure> riskFreeRate(
+                          ext::shared_ptr<YieldTermStructure>(
+                                      new FlatForward(today, risk_free_rate, dayCounter)));
 
-       
-        Handle<YieldTermStructure> riskFreeRate(
-            ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(today, risk_free_rate, dayCounter)));
          
         
        Handle<YieldTermStructure> volatility(
