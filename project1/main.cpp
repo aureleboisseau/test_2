@@ -69,7 +69,7 @@ int main() {
                     new FlatForward(today, dividend_rate, dayCounter)));
       
 
-         ext::shared_ptr<StochasticProcess1D> bsmProcess(
+         ext::shared_ptr<GeneralizedBlackScholesProcess> bsmProcess(
                  new BlackScholesMertonProcess(underlyingH, dividendTS,  riskFreeRate, volatility));
         
         
