@@ -28,13 +28,22 @@ int main() {
         Calendar calendar = TARGET();
         Date today = Date(24, February, 2021);
         Settings::instance().evaluationDate() = today;
-
+        
+        
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
-        Real div = 0.05;
-       
+
+
+        volatilityH = 0.20 ;
+        dividend_rate =  0.0163
+
+        risk_free_rate = 0.001;
+
         Date maturity(24, May, 2021);
+        
+       
+        
 
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
@@ -43,20 +52,24 @@ int main() {
 
         DayCounter dayCounter = Actual365Fixed();
        
-        
    
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new ZeroCurve({today, today + 6*Months}, {0.015,0.015}, dayCounter)));
+                new FlatForward(calculation_date, risk_free_rate, day_count);
+         
         
-        Handle<BlackVolTermStructure> volatility(
-            ext::shared_ptr<BlackVolTermStructure>(
-                new BlackConstantVol(today, calendar, 0.05, dayCounter)));
+       Handle<YieldTermStructure> volatility(
+            ext::shared_ptr<YieldTermStructure>(
+                new FlatForward(calculation_date, volatilityH, day_count);
+     
+       Handle<YieldTermStructure> dividenTS(
+            ext::shared_ptr<YieldTermStructure>(
+                new FlatForward(calculation_date, dividend_rate, day_count);
       
 
-        ext::shared_ptr<BlackScholesProcess2> bsmProcess(
-                 new BlackScholesProcess2(underlying, div,  riskFreeRate, volatility, volatility));
+        ext::shared_ptr<BlackScholesProcess> bsmProcess(
+                 new BlackScholesMertonProcess(underlying, dividendTS,  riskFreeRate, volatility));
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
