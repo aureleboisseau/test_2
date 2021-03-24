@@ -23,13 +23,13 @@
             const boost::shared_ptr<discretization>& d =
                                 boost::shared_ptr<discretization>());
         Real x0() const {
-            return x0_->value();
+            return x0->value();
         }
         Real drift(Time t, Real x) const {
             Real sigma = diffusion(t,x);
             Time t1 = t + 0.0001;
-            return riskFreeRate_->forwardRate(t,t1,Continuous,...)
-                 - dividendYield_->forwardRate(t,t1,Continuous,...)
+            return riskFreeRate->forwardRate(t,t1,Continuous,...)
+                 - dividendYield->forwardRate(t,t1,Continuous,...)
                  - 0.5 * sigma * sigma;
         }
         Real diffusion(Time t, Real x) const;
