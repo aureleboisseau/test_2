@@ -29,17 +29,17 @@ int main() {
         Calendar calendar = TARGET();
         Date today = Date(24, February, 2021);
         Settings::instance().evaluationDate() = today;
-        
+        DayCounter dayCounter = Actual365Fixed();
         
         Option::Type type(Option::Put);
         Real underlying = 36;
         Real strike = 40;
 
 
-        Real volatilityH = 0.20 ;
-        Real dividend_rate =  0.0163;
+        Volatility volatilityH = 0.20 ;
+        Rate dividend_rate =  0.0163;
 
-        Real risk_free_rate = 0.001;
+        Rate risk_free_rate = 0.001;
 
         Date maturity(24, May, 2021);
         
@@ -49,9 +49,10 @@ int main() {
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
 
-        Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
+        Handle<Quote> underlyingH(
+            ext::make_shared<Quote>(new SimpleQuote(underlying)));
 
-        DayCounter dayCounter = Actual365Fixed();
+        
        
          Handle<YieldTermStructure> riskFreeRate(
                           ext::shared_ptr<YieldTermStructure>(
@@ -59,17 +60,20 @@ int main() {
 
          
         
-       Handle<YieldTermStructure> volatility(
-            ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(today, volatilityH, dayCounter)));
+         Handle<BlackVolTermStructure> volatility(
+            ext::shared_ptr<BlackVolTermStructure>(
+                new BlackConstantVol(today, calendar, volatilityH, dayCounter)));
      
-       Handle<YieldTermStructure> dividendTS(
-            ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(today, dividend_rate, dayCounter)));
+         Handle<YieldTermStructure> dividendTS(
+                ext::shared_ptr<YieldTermStructure>(
+                    new FlatForward(today, dividend_rate, dayCounter)));
       
 
-        ext::shared_ptr<StochasticProcess1D> bsmProcess(
+         ext::shared_ptr<StochasticProcess1D> bsmProcess(
                  new BlackScholesMertonProcess(underlyingH, dividendTS,  riskFreeRate, volatility));
+        
+        
+        
 
         // options
         VanillaOption europeanOption(payoff, europeanExercise);
