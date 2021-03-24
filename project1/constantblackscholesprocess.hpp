@@ -1,6 +1,6 @@
 
- #ifndef quantlib_black_scholes_process_hpp
- #define quantlib_black_scholes_process_hpp
+ #ifndef quantlib_black_scholes_process_hpp2
+ #define quantlib_black_scholes_process_hpp2
   
  #include <ql/stochasticprocess.hpp>
  #include <ql/processes/eulerdiscretization.hpp>
@@ -12,8 +12,7 @@
  namespace QuantLib {
   
      class LocalConstantVol;
-     class LocalVolCurve;
-     class BlackConstantVol;
+    
   
   
      class GeneralizedBlackScholesProcess : public StochasticProcess1D {
@@ -62,54 +61,18 @@
      };
   
   
-     class BlackScholesProcess : public GeneralizedBlackScholesProcess {
+     class BlackScholesProcess2 : public GeneralizedBlackScholesProcess {
        public:
          BlackScholesProcess(
-             const Handle<Quote>& x0,
-             const Handle<YieldTermStructure>& riskFreeTS,
-             const Handle<BlackVolTermStructure>& blackVolTS,
+             const Real x0,
+             const Real riskFreeTS,
+             const Real blackVolTS,
              const ext::shared_ptr<discretization>& d =
                    ext::shared_ptr<discretization>(new EulerDiscretization),
              bool forceDiscretization = false);
      };
   
-  
-     class BlackScholesMertonProcess : public GeneralizedBlackScholesProcess {
-       public:
-         BlackScholesMertonProcess(
-             const Handle<Quote>& x0,
-             const Handle<YieldTermStructure>& dividendTS,
-             const Handle<YieldTermStructure>& riskFreeTS,
-             const Handle<BlackVolTermStructure>& blackVolTS,
-             const ext::shared_ptr<discretization>& d =
-                   ext::shared_ptr<discretization>(new EulerDiscretization),
-             bool forceDiscretization = false);
-     };
-  
-  
-     class BlackProcess : public GeneralizedBlackScholesProcess {
-       public:
-         BlackProcess(
-             const Handle<Quote>& x0,
-             const Handle<YieldTermStructure>& riskFreeTS,
-             const Handle<BlackVolTermStructure>& blackVolTS,
-             const ext::shared_ptr<discretization>& d =
-                   ext::shared_ptr<discretization>(new EulerDiscretization),
-             bool forceDiscretization = false);
-     };
-  
-  
-     class GarmanKohlagenProcess : public GeneralizedBlackScholesProcess {
-       public:
-         GarmanKohlagenProcess(
-             const Handle<Quote>& x0,
-             const Handle<YieldTermStructure>& foreignRiskFreeTS,
-             const Handle<YieldTermStructure>& domesticRiskFreeTS,
-             const Handle<BlackVolTermStructure>& blackVolTS,
-             const ext::shared_ptr<discretization>& d =
-                   ext::shared_ptr<discretization>(new EulerDiscretization),
-             bool forceDiscretization = false);
-     };
+
   
  }
   
