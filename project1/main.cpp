@@ -35,10 +35,10 @@ int main() {
         Real strike = 40;
 
 
-        volatilityH = 0.20 ;
-        dividend_rate =  0.0163
+        Real volatilityH = 0.20 ;
+        Real dividend_rate =  0.0163
 
-        risk_free_rate = 0.001;
+        Real risk_free_rate = 0.001;
 
         Date maturity(24, May, 2021);
         
@@ -56,16 +56,16 @@ int main() {
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, risk_free_rate, day_count);
+                new FlatForward(calculation_date, risk_free_rate, dayCounter);
          
         
        Handle<YieldTermStructure> volatility(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, volatilityH, day_count);
+                new FlatForward(calculation_date, volatilityH, dayCounter);
      
        Handle<YieldTermStructure> dividenTS(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, dividend_rate, day_count);
+                new FlatForward(calculation_date, dividend_rate, dayCounter);
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
