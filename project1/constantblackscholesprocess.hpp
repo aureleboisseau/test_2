@@ -15,21 +15,21 @@
     
   
   
-     class GeneralizedBlackScholesProcess : public StochasticProcess1D {
+     class GeneralizedBlackScholesProcess2 : public StochasticProcess1D {
        public:
-         GeneralizedBlackScholesProcess(Handle<Quote> x0,
-                                        Handle<YieldTermStructure> dividendTS,
-                                        Handle<YieldTermStructure> riskFreeTS,
-                                        Handle<BlackVolTermStructure> blackVolTS,
-                                        const ext::shared_ptr<discretization>& d =
-                                            ext::shared_ptr<discretization>(new EulerDiscretization),
-                                        bool forceDiscretization = false);
+         GeneralizedBlackScholesProcess2(const Real x0,
+                                         const Real dividendTS,
+                                         const Real riskFreeTS,
+                                         const Real blackVolTS,
+                                         const ext::shared_ptr<discretization>& d =
+                                             ext::shared_ptr<discretization>(new EulerDiscretization),
+                                         bool forceDiscretization = false);
   
-         GeneralizedBlackScholesProcess(Handle<Quote> x0,
-                                        Handle<YieldTermStructure> dividendTS,
-                                        Handle<YieldTermStructure> riskFreeTS,
-                                        Handle<BlackVolTermStructure> blackVolTS,
-                                        Handle<LocalVolTermStructure> localVolTS);
+         GeneralizedBlackScholesProcess2(const Real x0,
+                                        const Real dividendTS,
+                                        const Real riskFreeTS,
+                                        const Real blackVolTS,
+                                       const Real localVolTS);
   
   
          Real x0() const override;
@@ -61,9 +61,9 @@
      };
   
   
-     class BlackScholesProcess2 : public GeneralizedBlackScholesProcess {
+     class BlackScholesProcess2 : public GeneralizedBlackScholesProcess2 {
        public:
-         BlackScholesProcess(
+         BlackScholesProcess2(
              const Real x0,
              const Real riskFreeTS,
              const Real blackVolTS,
