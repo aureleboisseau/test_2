@@ -16,6 +16,7 @@
 #include <iostream>
 #include <chrono>
 #include <ql/termstructures/yieldtermstructure.hpp>
+#include <ql/termstructures/yield/flatforward.hpp>
 
 using namespace QuantLib;
 
