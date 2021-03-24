@@ -81,7 +81,7 @@ int main() {
         Size timeSteps = 10;
         Size mcSeed = 42;
         ext::shared_ptr<PricingEngine> mcengine;
-        mcengine = MakeMCEuropeanEngine_2(bsmProcess)
+        mcengine = MakeMCEuropeanEngine_2<PseudoRandom>(bsmProcess)
             .withSteps(timeSteps)
             .withAbsoluteTolerance(0.01)
             .withSeed(mcSeed);
