@@ -36,7 +36,7 @@ int main() {
 
 
         Real volatilityH = 0.20 ;
-        Real dividend_rate =  0.0163
+        Real dividend_rate =  0.0163;
 
         Real risk_free_rate = 0.001;
 
@@ -56,16 +56,16 @@ int main() {
        
         Handle<YieldTermStructure> riskFreeRate(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, risk_free_rate, dayCounter);
+                new FlatForward(calculation_date, risk_free_rate, dayCounter)));
          
         
        Handle<YieldTermStructure> volatility(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, volatilityH, dayCounter);
+                new FlatForward(calculation_date, volatilityH, dayCounter)));
      
        Handle<YieldTermStructure> dividenTS(
             ext::shared_ptr<YieldTermStructure>(
-                new FlatForward(calculation_date, dividend_rate, dayCounter);
+                new FlatForward(calculation_date, dividend_rate, dayCounter)));
       
 
         ext::shared_ptr<BlackScholesProcess> bsmProcess(
