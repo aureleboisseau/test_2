@@ -45,11 +45,16 @@ int main() {
         DiscountFactor discount = std::exp(-riskFree * timeToMaturity);
         VanillaOption europeanOption(payoff, europeanExercise);
         BlackScholesCalculator bsCalculator(payoff, underlying, growth, vol, discount);
+        auto startTime = std::chrono::steady_clock::now();
         
         Real you = bsCalculator.value();
        
         std::cout << "NPV: " << you << std::endl;
-       
+        auto endTime = std::chrono::steady_clock::now();
+
+        double us = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+        std::cout << "Vallue of the call: " << you << std::endl;
+        std::cout << "Elapsed time: " << us / 1000000 << " s" << std::endl;
         return 0;
 
     } catch (std::exception& e) {
