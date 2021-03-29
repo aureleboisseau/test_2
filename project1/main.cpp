@@ -49,9 +49,8 @@ int main() {
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
 
-        Handle<Quote> underlying(
-            ext::make_shared<Quote>(
-                new SimpleQuote(underlyingR)));
+        
+        Handle<Quote> underlying(ext::make_shared<SimpleQuote>(underlyingR));
 
         
        
@@ -71,7 +70,7 @@ int main() {
       
 
          ext::shared_ptr<GeneralizedBlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlying,  riskFreeRate, volatility));
+                 new BlackScholesMertonProcess(underlying,  riskFreeRate, volatility));
         
         
         
