@@ -71,7 +71,7 @@ int main() {
       
 
          ext::shared_ptr<GeneralizedBlackScholesProcess> bsmProcess(
-                 new BlackScholesProcess(underlyingH,  riskFreeRate, volatility));
+                 new BlackScholesProcess(underlying,  riskFreeRate, volatility));
         
         
         
