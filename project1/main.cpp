@@ -32,11 +32,11 @@ int main() {
         DayCounter dayCounter = Actual365Fixed();
         
         Option::Type type(Option::Put);
-        Real underlying = 36;
+        Real underlyingR = 36;
         Real strike = 40;
 
 
-        Volatility volatilityH = 0.20 ;
+        Volatility volatilityR = 0.20 ;
         Rate dividend_rate =  0.0163;
 
         Rate risk_free_rate = 0.001;
@@ -49,20 +49,21 @@ int main() {
         ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
         ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
 
-        Handle<Quote> underlyingH(
-            ext::make_shared<Quote>(new SimpleQuote(underlying)));
+        Handle<Quote> underlying(
+            ext::make_shared<Quote>(
+                new SimpleQuote(underlyingR)));
 
         
        
          Handle<YieldTermStructure> riskFreeRate(
-                          ext::shared_ptr<YieldTermStructure>(
-                                      new FlatForward(today, risk_free_rate, dayCounter)));
+            ext::shared_ptr<YieldTermStructure>(
+                new FlatForward(today, risk_free_rate, dayCounter)));
 
          
         
          Handle<BlackVolTermStructure> volatility(
             ext::shared_ptr<BlackVolTermStructure>(
-                new BlackConstantVol(today, calendar, volatilityH, dayCounter)));
+                new BlackConstantVol(today, calendar, volatilityR, dayCounter)));
      
          Handle<YieldTermStructure> dividendTS(
                 ext::shared_ptr<YieldTermStructure>(
@@ -70,7 +71,7 @@ int main() {
       
 
          ext::shared_ptr<GeneralizedBlackScholesProcess> bsmProcess(
-                 new BlackScholesMertonProcess(underlyingH, dividendTS,  riskFreeRate, volatility));
+                 new BlackScholesProcess(underlyingH,  riskFreeRate, volatility));
         
         
         
